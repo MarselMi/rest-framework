@@ -1,4 +1,4 @@
-from authors.views import AuthorModelViewSet
+from authors.views import AuthorModelViewSet, BookModelViewSet, BiographyModelViewSet, ArticlesModelViewSet
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
