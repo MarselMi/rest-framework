@@ -22,8 +22,9 @@ class Project(models.Model):
 
 class TODO(models.Model):
     text = models.TextField(verbose_name='Текст заметки')
-    create_at = models.DateTimeField(auto_created=True, verbose_name='Дата создания заметки')
-    update_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата редактирования')
+    project_id = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, verbose_name='Заметка к проекту')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заметки')
+    update_at = models.DateTimeField(blank=True, null=True, auto_now=True, verbose_name='Дата редактирования')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Создатель')
     status = models.BooleanField(default=True, verbose_name='Статус заметки')
 
