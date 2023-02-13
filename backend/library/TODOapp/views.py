@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import mixins
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class ProjectOffsetPaginator(LimitOffsetPagination):
@@ -43,6 +44,7 @@ class ProjectViewSet(ModelViewSet):
 
 
 class TODOViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = TODO.objects.filter(status=True)
     serializer_class = TODOSerializer
     pagination_class = ToDoOffsetPaginator
@@ -59,12 +61,4 @@ class TODOViewSet(ModelViewSet):
         instance.save()
         return Response({"STATUS": "DELETED"})
 
-
-class UserView(APIView):
-    renderer_classes = [JSONRenderer]
-
-    def get(self, request, format=None):
-        articles = User.objects.all()
-        serializer = UserSerializer(articles, many=True)
-        return Response(serializer.data)
 

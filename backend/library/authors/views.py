@@ -4,9 +4,14 @@ from .models import Author, Biography, Book, Article
 from .serializers import AuthorSerializer, BookSerializer, BiographySerializer, ArticleSerializer
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import action
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.permissions import AllowAny
 
 
 class AuthorView(APIView):
+    permission_classes = AllowAny
     renderer_classes = [JSONRenderer]
 
     def get(self, request, format=None):

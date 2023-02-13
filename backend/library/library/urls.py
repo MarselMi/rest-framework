@@ -1,8 +1,9 @@
 from authors.views import AuthorViewSet, BookModelViewSet, BiographyModelViewSet, ArticlesModelViewSet, AuthorView
-from TODOapp.views import UserViewSet, ProjectViewSet, TODOViewSet, UserView
+from TODOapp.views import UserViewSet, ProjectViewSet, TODOViewSet
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 
 router = DefaultRouter()
@@ -19,5 +20,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
     path('views/api-view/', AuthorView.as_view()),
-    path('views/api-user/', UserView.as_view()),
+    path('api-token-auth/', views.obtain_auth_token),
 ]
