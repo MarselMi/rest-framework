@@ -31,6 +31,11 @@ class BookModelViewSet(ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return BookSerializer
+        return BookSerializer
+
 
 class BiographyModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
