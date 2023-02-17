@@ -5,6 +5,7 @@ django-filter==22.1
 djangorestframework==3.14.0
 Faker==12.0.1
 future==0.18.3
+generics==6.0.0
 Markdown==3.4.1
 mixer==7.2.2
 python-dateutil==2.8.2

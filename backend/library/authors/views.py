@@ -21,20 +21,23 @@ class AuthorView(APIView):
 
 
 class AuthorViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return AuthorSerializerBase
+        return AuthorSerializer
 
 
 class BookModelViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    queryset = Book.objects.all()
     serializer_class = BookSerializer
+    queryset = Book.objects.all()
 
     def get_serializer_class(self):
         if self.request.method in ['GET']:
             return BookSerializer
-        return BookSerializer
+        return BookSerializerBase
 
 
 class BiographyModelViewSet(ModelViewSet):

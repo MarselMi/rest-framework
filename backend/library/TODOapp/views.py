@@ -1,7 +1,8 @@
+from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.views import APIView
-from TODOapp.models import User, Project, TODO
-from .serializers import UserSerializer, ProjectSerializer, TODOSerializer
+from .models import User, Project, TODO
+from .serializers import UserSerializer, ProjectSerializer, TODOSerializer, UserSerializerWithFullName
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework import mixins
@@ -18,10 +19,14 @@ class ToDoOffsetPaginator(LimitOffsetPagination):
     default_limit = 20
 
 
-class UserViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+class UserListAPIView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_serializer_class(self):
+        if self.request.version == '0.2':
+            return UserSerializerWithFullName
+        return UserSerializer
 
 
 class ProjectViewSet(ModelViewSet):

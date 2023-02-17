@@ -24,6 +24,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
 
     class Meta:
         model = Book
