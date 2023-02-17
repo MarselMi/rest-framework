@@ -6,6 +6,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from graphene_django.views import GraphQLView
 
 
 router = DefaultRouter()
@@ -25,7 +26,6 @@ schema_view = get_schema_view(
         license=openapi.License(name="MIT License"),
     ),
     public=True,
-    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
@@ -36,4 +36,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('views/api-view/', AuthorView.as_view()),
     path('api-token-auth/', views.obtain_auth_token),
+    path("graphql/", GraphQLView.as_view(graphiql=True)),
 ]
